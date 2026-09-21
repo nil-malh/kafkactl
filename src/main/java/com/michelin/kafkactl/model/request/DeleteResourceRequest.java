@@ -34,8 +34,9 @@ public record DeleteResourceRequest(
         @Nullable @QueryValue String version,
         @QueryValue boolean dryrun,
         @QueryValue boolean force,
-        @QueryValue boolean cascade) {
+        @QueryValue boolean cascade,
+        @QueryValue boolean async) {
     public DeleteResourceRequest withToken(String token) {
-        return new DeleteResourceRequest(namespace, kind, token, name, version, dryrun, force, cascade);
+        return new DeleteResourceRequest(namespace, kind, token, name, version, dryrun, force, cascade, async);
     }
 }

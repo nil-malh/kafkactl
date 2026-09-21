@@ -341,7 +341,8 @@ class DeleteTest {
         verify(resourceService)
                 .delete(
                         any(),
-                        eq(deleteRequest("namespace", "connectors", "prefix.connector", null, false, true, false)),
+                        eq(deleteRequest(
+                                "namespace", "connectors", "prefix.connector", null, false, true, false, false)),
                         any());
     }
 
@@ -369,7 +370,8 @@ class DeleteTest {
         verify(resourceService)
                 .delete(
                         any(),
-                        eq(deleteRequest("namespace", "connect-clusters", "my-cluster", null, false, true, false)),
+                        eq(deleteRequest(
+                                "namespace", "connect-clusters", "my-cluster", null, false, true, false, false)),
                         any());
     }
 
@@ -397,7 +399,8 @@ class DeleteTest {
         verify(resourceService)
                 .delete(
                         any(),
-                        eq(deleteRequest("namespace", "connect-clusters", "my-cluster", null, false, false, true)),
+                        eq(deleteRequest(
+                                "namespace", "connect-clusters", "my-cluster", null, false, false, true, false)),
                         any());
     }
 
@@ -425,7 +428,8 @@ class DeleteTest {
         verify(resourceService)
                 .delete(
                         any(),
-                        eq(deleteRequest("namespace", "connect-clusters", "my-cluster", null, false, true, true)),
+                        eq(deleteRequest(
+                                "namespace", "connect-clusters", "my-cluster", null, false, true, true, false)),
                         any());
     }
 
@@ -677,7 +681,8 @@ class DeleteTest {
             String version,
             boolean dryRun,
             boolean force,
-            boolean cascade) {
-        return new DeleteResourceRequest(namespace, kind, null, name, version, dryRun, force, cascade);
+            boolean cascade,
+            boolean async) {
+        return new DeleteResourceRequest(namespace, kind, null, name, version, dryRun, force, cascade, async);
     }
 }

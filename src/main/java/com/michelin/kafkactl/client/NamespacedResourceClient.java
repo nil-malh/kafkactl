@@ -44,7 +44,7 @@ public interface NamespacedResourceClient {
      * @param request The delete resource request
      * @return The delete response
      */
-    @Delete("{namespace}/{kind}{?name,version,dryrun,force,cascade}")
+    @Delete("{namespace}/{kind}{?name,version,dryrun,force,cascade,async}")
     @Retryable(
             delay = "${kafkactl.retry.delay}",
             attempts = "${kafkactl.retry.attempt}",
