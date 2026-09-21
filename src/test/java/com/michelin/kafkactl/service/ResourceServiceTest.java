@@ -812,7 +812,9 @@ class ResourceServiceTest {
                 .build();
 
         boolean actual = resourceService.delete(
-                apiResource, deleteRequest(apiResource, "name", null, false, false, false), cmd.getCommandSpec());
+                apiResource,
+                deleteRequest(apiResource, "name", null, false, false, false, false),
+                cmd.getCommandSpec());
 
         assertTrue(actual);
         assertTrue(sw.toString().contains("Topic \"name\" deleted."));
@@ -847,7 +849,9 @@ class ResourceServiceTest {
                 .build();
 
         boolean actual = resourceService.delete(
-                apiResource, deleteRequest(apiResource, "name*", null, false, false, false), cmd.getCommandSpec());
+                apiResource,
+                deleteRequest(apiResource, "name*", null, false, false, false, false),
+                cmd.getCommandSpec());
 
         assertTrue(actual);
         assertTrue(sw.toString().contains("Topic \"name1\" deleted."));
@@ -878,7 +882,9 @@ class ResourceServiceTest {
                 .build();
 
         boolean actual = resourceService.delete(
-                apiResource, deleteRequest(apiResource, "name", "latest", false, false, false), cmd.getCommandSpec());
+                apiResource,
+                deleteRequest(apiResource, "name", "latest", false, false, false, false),
+                cmd.getCommandSpec());
 
         assertTrue(actual);
         assertTrue(sw.toString().contains("Topic \"name\" version latest deleted."));
@@ -907,10 +913,12 @@ class ResourceServiceTest {
                 .build();
 
         boolean actual = resourceService.delete(
-                apiResource, deleteRequest(apiResource, "connector", null, false, true, false), cmd.getCommandSpec());
+                apiResource,
+                deleteRequest(apiResource, "connector", null, false, true, false, false),
+                cmd.getCommandSpec());
 
         assertTrue(actual);
-        verify(namespacedClient).delete(deleteRequest(apiResource, "connector", null, false, true, false));
+        verify(namespacedClient).delete(deleteRequest(apiResource, "connector", null, false, true, false, false));
     }
 
     @Test
@@ -936,10 +944,12 @@ class ResourceServiceTest {
                 .build();
 
         boolean actual = resourceService.delete(
-                apiResource, deleteRequest(apiResource, "cluster", null, false, true, false), cmd.getCommandSpec());
+                apiResource,
+                deleteRequest(apiResource, "cluster", null, false, true, false, false),
+                cmd.getCommandSpec());
 
         assertTrue(actual);
-        verify(namespacedClient).delete(deleteRequest(apiResource, "cluster", null, false, true, false));
+        verify(namespacedClient).delete(deleteRequest(apiResource, "cluster", null, false, true, false, false));
     }
 
     @Test
@@ -965,10 +975,12 @@ class ResourceServiceTest {
                 .build();
 
         boolean actual = resourceService.delete(
-                apiResource, deleteRequest(apiResource, "cluster", null, false, false, true), cmd.getCommandSpec());
+                apiResource,
+                deleteRequest(apiResource, "cluster", null, false, false, true, false),
+                cmd.getCommandSpec());
 
         assertTrue(actual);
-        verify(namespacedClient).delete(deleteRequest(apiResource, "cluster", null, false, false, true));
+        verify(namespacedClient).delete(deleteRequest(apiResource, "cluster", null, false, false, true, false));
     }
 
     @Test
@@ -994,10 +1006,12 @@ class ResourceServiceTest {
                 .build();
 
         boolean actual = resourceService.delete(
-                apiResource, deleteRequest(apiResource, "cluster", null, false, true, true), cmd.getCommandSpec());
+                apiResource,
+                deleteRequest(apiResource, "cluster", null, false, true, true, false),
+                cmd.getCommandSpec());
 
         assertTrue(actual);
-        verify(namespacedClient).delete(deleteRequest(apiResource, "cluster", null, false, true, true));
+        verify(namespacedClient).delete(deleteRequest(apiResource, "cluster", null, false, true, true, false));
     }
 
     @Test
@@ -1023,10 +1037,10 @@ class ResourceServiceTest {
                 .build();
 
         boolean actual = resourceService.delete(
-                apiResource, deleteRequest(apiResource, "topic", null, false, true, true), cmd.getCommandSpec());
+                apiResource, deleteRequest(apiResource, "topic", null, false, true, true, false), cmd.getCommandSpec());
 
         assertTrue(actual);
-        verify(namespacedClient).delete(deleteRequest(apiResource, "topic", null, false, true, true));
+        verify(namespacedClient).delete(deleteRequest(apiResource, "topic", null, false, true, true, false));
     }
 
     @Test
@@ -1053,7 +1067,9 @@ class ResourceServiceTest {
                 .build();
 
         boolean actual = resourceService.delete(
-                apiResource, deleteRequest(apiResource, "name", null, false, false, false), cmd.getCommandSpec());
+                apiResource,
+                deleteRequest(apiResource, "name", null, false, false, false, false),
+                cmd.getCommandSpec());
 
         assertTrue(actual);
         assertTrue(sw.toString().contains("Topic \"name\" deleted."));
@@ -1088,7 +1104,9 @@ class ResourceServiceTest {
                 .build();
 
         boolean actual = resourceService.delete(
-                apiResource, deleteRequest(apiResource, "name*", null, false, false, false), cmd.getCommandSpec());
+                apiResource,
+                deleteRequest(apiResource, "name*", null, false, false, false, false),
+                cmd.getCommandSpec());
 
         assertTrue(actual);
         assertTrue(sw.toString().contains("Topic \"name1\" deleted."));
@@ -1112,7 +1130,7 @@ class ResourceServiceTest {
 
         boolean actual = resourceService.delete(
                 apiResource,
-                deleteRequest(apiResource, "prefix.topic", null, false, false, false),
+                deleteRequest(apiResource, "prefix.topic", null, false, false, false, false),
                 cmd.getCommandSpec());
 
         assertFalse(actual);
@@ -1135,7 +1153,7 @@ class ResourceServiceTest {
 
         boolean actual = resourceService.delete(
                 apiResource,
-                deleteRequest(apiResource, "prefix.topic", null, false, false, false),
+                deleteRequest(apiResource, "prefix.topic", null, false, false, false, false),
                 cmd.getCommandSpec());
 
         assertFalse(actual);
@@ -1164,7 +1182,7 @@ class ResourceServiceTest {
 
         boolean actual = resourceService.delete(
                 apiResource,
-                deleteRequest(apiResource, "prefix.topic", null, false, false, false),
+                deleteRequest(apiResource, "prefix.topic", null, false, false, false, false),
                 cmd.getCommandSpec());
 
         assertFalse(actual);
@@ -1178,9 +1196,15 @@ class ResourceServiceTest {
     }
 
     private static DeleteResourceRequest deleteRequest(
-            ApiResource apiResource, String name, String version, boolean dryRun, boolean force, boolean cascade) {
+            ApiResource apiResource,
+            String name,
+            String version,
+            boolean dryRun,
+            boolean force,
+            boolean cascade,
+            boolean async) {
         return new DeleteResourceRequest(
-                "namespace", apiResource.getPath(), null, name, version, dryRun, force, cascade);
+                "namespace", apiResource.getPath(), null, name, version, dryRun, force, cascade, async);
     }
 
     @Test

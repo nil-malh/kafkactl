@@ -77,6 +77,12 @@ public class Delete extends DryRunHook {
             description = "Cascade delete related connectors from Ns4Kafka. Only for connect cluster.")
     public boolean cascade;
 
+    @Option(
+            names = {"--async"},
+            description = "Delete resource asynchronously. Only applicable for topics.",
+            defaultValue = "false")
+    public boolean async;
+
     /**
      * Run the "delete" command.
      *
@@ -125,7 +131,8 @@ public class Delete extends DryRunHook {
                                                 version,
                                                 dryRun,
                                                 force,
-                                                cascade),
+                                                cascade,
+                                                async),
                                         commandSpec)
                                 ? 0
                                 : 1;
